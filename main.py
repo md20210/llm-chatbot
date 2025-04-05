@@ -22,6 +22,8 @@ class ChatRequest(BaseModel):
 
 chat_history = []
 
+chat_history = []
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
   chat_history.append(request.message)
