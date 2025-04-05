@@ -14,7 +14,7 @@ function App() {
     } catch (error) {
       console.error("Error:", error);
     }
-    setMessage(''); // Außerhalb von try/catch
+    setMessage('');
   };
 
   return (
@@ -49,8 +49,12 @@ function App() {
           marginRight: '10px', 
           padding: '8px', 
           border: '1px solid #ccc', 
-          borderRadius: '4px' 
+          borderRadius: '4px',
+          outline: 'none',
+          transition: 'border-color 0.3s'
         }}
+        onFocus={(e) => e.target.style.borderColor = '#007bff'}
+        onBlur={(e) => e.target.style.borderColor = '#ccc'}
         onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
       />
       <button 
@@ -70,4 +74,4 @@ function App() {
   );
 }
 
-export default App; // Muss außerhalb der Funktion stehen
+export default App;
