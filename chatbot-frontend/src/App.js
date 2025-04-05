@@ -11,10 +11,10 @@ function App() {
       const res = await axios.post('http://localhost:8000/chat', { message });
       const newEntry = { user: message, bot: res.data.response };
       setChatHistory([...chatHistory, newEntry]);
-      setMessage('');
     } catch (error) {
       console.error("Error:", error);
     }
+    setMessage(''); // Muss hier sein, damit es immer ausgeführt wird
   };
 
   return (

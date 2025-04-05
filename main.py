@@ -13,7 +13,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# BlenderBot laden
 model_name = "facebook/blenderbot-400M-distill"
 tokenizer = BlenderbotTokenizer.from_pretrained(model_name)
 model = BlenderbotForConditionalGeneration.from_pretrained(model_name)
@@ -23,8 +22,7 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    message = f"{request.message} (a friendly greeting)"  # Kontext hinzufügen
-    inputs = tokenizer(message, return_tensors="pt")
+    inputs = tokenizer(request.message, return_tensors="pt")
     reply_ids = model.generate(**inputs, max_length=100, num_beams=4, early_stopping=True)
     response = tokenizer.decode(reply_ids[0], skip_special_tokens=True)
     return {"response": response}
