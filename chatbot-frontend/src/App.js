@@ -14,18 +14,29 @@ function App() {
     } catch (error) {
       console.error("Error:", error);
     }
-    setMessage(''); // Muss hier sein, damit es immer ausgeführt wird
+    setMessage(''); // Außerhalb von try/catch
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>LLM Chatbot</h1>
-      <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ color: '#333' }}>LLM Chatbot</h1>
+      <div style={{ 
+        height: '300px', 
+        overflowY: 'auto', 
+        border: '1px solid #ccc', 
+        padding: '10px', 
+        marginBottom: '10px', 
+        backgroundColor: '#f9f9f9' 
+      }}>
         {chatHistory.map((entry, index) => (
-          <div key={index}>
-            <p><strong>You:</strong> {entry.user}</p>
-            <p><strong>Bot:</strong> {entry.bot}</p>
-            <hr />
+          <div key={index} style={{ marginBottom: '10px' }}>
+            <p style={{ color: '#007bff', margin: '5px 0' }}>
+              <strong>You:</strong> {entry.user}
+            </p>
+            <p style={{ color: '#28a745', margin: '5px 0' }}>
+              <strong>Bot:</strong> {entry.bot}
+            </p>
+            <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
           </div>
         ))}
       </div>
@@ -33,12 +44,30 @@ function App() {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type your message..."
-        style={{ width: '70%', marginRight: '10px' }}
+        style={{ 
+          width: '70%', 
+          marginRight: '10px', 
+          padding: '8px', 
+          border: '1px solid #ccc', 
+          borderRadius: '4px' 
+        }}
         onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
       />
-      <button onClick={sendMessage}>Send</button>
+      <button 
+        onClick={sendMessage}
+        style={{ 
+          padding: '8px 16px', 
+          backgroundColor: '#007bff', 
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '4px', 
+          cursor: 'pointer' 
+        }}
+      >
+        Send
+      </button>
     </div>
   );
 }
 
-export default App;
+export default App; // Muss außerhalb der Funktion stehen
