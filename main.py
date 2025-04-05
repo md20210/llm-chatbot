@@ -20,12 +20,17 @@ model = BlenderbotForConditionalGeneration.from_pretrained(model_name)
 class ChatRequest(BaseModel):
     message: str
 
+chat_history = []
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    inputs = tokenizer(request.message, return_tensors="pt")
-    reply_ids = model.generate(**inputs, max_length=100, num_beams=4, early_stopping=True)
-    response = tokenizer.decode(reply_ids[0], skip_special_tokens=True)
-    return {"response": response}
+  chat_history.append(request.message)
+  context = " ".join(chat_history[-3:])  # Letzte 3 Nachrichten
+  inputs = tokenizer(context, return_tensors="pt")
+  reply_ids = model.generate(**inputs, max_length=100, num_beams=4, early_stopping=True)
+  response = tokenizer.decode(reply_ids[0], skip_special_tokens=True)
+  chat_history.append(response)
+  return {"response": response}
 
 if __name__ == "__main__":
     import uvicorn

@@ -21,25 +21,38 @@ function App() {
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ color: '#333' }}>LLM Chatbot</h1>
       <div style={{ 
-        height: '300px', 
-        overflowY: 'auto', 
-        border: '1px solid #ccc', 
-        padding: '10px', 
-        marginBottom: '10px', 
-        backgroundColor: '#f9f9f9' 
+  height: '300px', 
+  overflowY: 'auto', 
+  border: '1px solid #ccc', 
+  padding: '10px', 
+  marginBottom: '10px', 
+  backgroundColor: '#f9f9f9' 
+}}>
+  {chatHistory.map((entry, index) => (
+    <div key={index} style={{ marginBottom: '15px' }}>
+      <p style={{ 
+        color: '#007bff', 
+        backgroundColor: '#e7f1ff', 
+        padding: '8px', 
+        borderRadius: '8px', 
+        display: 'inline-block', 
+        maxWidth: '70%' 
       }}>
-        {chatHistory.map((entry, index) => (
-          <div key={index} style={{ marginBottom: '10px' }}>
-            <p style={{ color: '#007bff', margin: '5px 0' }}>
-              <strong>You:</strong> {entry.user}
-            </p>
-            <p style={{ color: '#28a745', margin: '5px 0' }}>
-              <strong>Bot:</strong> {entry.bot}
-            </p>
-            <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
-          </div>
-        ))}
-      </div>
+        <strong>You:</strong> {entry.user}
+      </p>
+      <p style={{ 
+        color: '#28a745', 
+        backgroundColor: '#e6ffe6', 
+        padding: '8px', 
+        borderRadius: '8px', 
+        display: 'inline-block', 
+        maxWidth: '70%' 
+      }}>
+        <strong>Bot:</strong> {entry.bot}
+      </p>
+    </div>
+  ))}
+</div>
       <input
         value={message}
         onChange={(e) => setMessage(e.target.value)}
